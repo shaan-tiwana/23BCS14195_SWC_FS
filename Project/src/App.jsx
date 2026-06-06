@@ -17,6 +17,24 @@
         setCount(prev => prev * 2)
       }
     }
+    const[arr,setArr] = useState([])
+    const[arrEle,setArrEle] = useState(arr[arr.length-1])
+    const[temp,setTemp] = useState(arr.length-1)
+    const handleClickUndo = () => {
+      if(temp-1 >= 0){
+        let flat=temp-1
+        setTemp(flat)
+        setArrEle(arr[flat])
+      }
+    }
+    const handleClickRedo = () => {
+      if(temp+1 < arr.length){
+        let flat=temp+1
+        setTemp(flat)
+        setArrEle(arr[flat])
+      }
+    }
+    const[input,setInput] = useState("")
     return (
       <>
         <section id="center">
@@ -42,88 +60,21 @@
           <p> The value of x doubles on every third button click</p>
         </section>
 
-        <div className="ticks"></div>
+        <br />
+        <br />
+        <div id="undo-redo-implementtation" >
+          <h1>Undo-Redo Implementation</h1>
+          <input type="text" value={input} onChange={(e)=>{
+            setInput(e.target.value)
+            setArr([...arr,e.target.value])
+            setArrEle(e.target.value)
+          }} />
+          <p><b>Current Value: {arrEle}</b></p>
+          <button onClick={handleClickUndo}>Undo</button>
+          <button onClick={handleClickRedo}>Redo</button>
+        </div>
 
-        <section id="next-steps">
-          <div id="docs">
-            <svg className="icon" role="presentation" aria-hidden="true">
-              <use href="/icons.svg#documentation-icon"></use>
-            </svg>
-            <h2>Documentation</h2>
-            <p>Your questions, answered</p>
-            <ul>
-              <li>
-                <a href="https://vite.dev/" target="_blank">
-                  <img className="logo" src={viteLogo} alt="" />
-                  Explore Vite
-                </a>
-              </li>
-              <li>
-                <a href="https://react.dev/" target="_blank">
-                  <img className="button-icon" src={reactLogo} alt="" />
-                  Learn more
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div id="social">
-            <svg className="icon" role="presentation" aria-hidden="true">
-              <use href="/icons.svg#social-icon"></use>
-            </svg>
-            <h2>Connect with us</h2>
-            <p>Join the Vite community</p>
-            <ul>
-              <li>
-                <a href="https://github.com/vitejs/vite" target="_blank">
-                  <svg
-                    className="button-icon"
-                    role="presentation"
-                    aria-hidden="true"
-                  >
-                    <use href="/icons.svg#github-icon"></use>
-                  </svg>
-                  GitHub
-                </a>
-              </li>
-              <li>
-                <a href="https://chat.vite.dev/" target="_blank">
-                  <svg
-                    className="button-icon"
-                    role="presentation"
-                    aria-hidden="true"
-                  >
-                    <use href="/icons.svg#discord-icon"></use>
-                  </svg>
-                  Discord
-                </a>
-              </li>
-              <li>
-                <a href="https://x.com/vite_js" target="_blank">
-                  <svg
-                    className="button-icon"
-                    role="presentation"
-                    aria-hidden="true"
-                  >
-                    <use href="/icons.svg#x-icon"></use>
-                  </svg>
-                  X.com
-                </a>
-              </li>
-              <li>
-                <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                  <svg
-                    className="button-icon"
-                    role="presentation"
-                    aria-hidden="true"
-                  >
-                    <use href="/icons.svg#bluesky-icon"></use>
-                  </svg>
-                  Bluesky
-                </a>
-              </li>
-            </ul>
-          </div>
-        </section>
+        
 
         <div className="ticks"></div>
         <section id="spacer"></section>
